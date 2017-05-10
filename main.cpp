@@ -27,6 +27,8 @@ int main()
 	x= (double *) calloc(sizeof(double), m * n);
 	f=(double *)malloc(sizeof(double)  *  m);
 
+	//komentarz
+
     //1 - bent cigar
     //3 - zakharov
     //4 - rosenbrock
