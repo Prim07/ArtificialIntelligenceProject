@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <malloc.h>
+#include "Star.h"
 
 
 void cec17_test_func(double *, double *,int,int,int);
@@ -26,6 +27,8 @@ int main()
 	n=10;
 	x= (double *) calloc(sizeof(double), m * n);
 	f=(double *)malloc(sizeof(double)  *  m);
+    //licznosc populacji
+    int population;
 
 	//komentarz - dodany
 
@@ -37,6 +40,7 @@ int main()
 
 	for (i = 0; i < 4; i++)
 	{
+        printf("function number %d\n", i+1);
 		func_num=func_nums[i];
 		sprintf(FileName, "C:/temp/input_data/shift_data_%d.txt", func_num);
 		fpt = fopen(FileName,"r");
@@ -71,7 +75,35 @@ int main()
             }
             printf("\n");
         }
-	
+
+        int blackHoleID;
+        Star** TabOfStars = new Star*[population];
+        for(int it=0; it<100000; it++) {
+            //obliczamy wartosc funckji
+
+
+            //szukamy czarnej dziury
+
+
+            //zmieniamy polozenie gwiazd
+
+
+            //szukamy nowej czarnej dziury
+
+
+            //aktulizujemy gwaizdy zabite przez czarna dziure
+
+
+            //jesli znajdziemy rozwiazanie zakoncz petle
+
+
+        }
+
+        printf("\n");
+        printf("\n");
+        printf("\n");
+
+
 	}
 	free(x);
 	free(f);
