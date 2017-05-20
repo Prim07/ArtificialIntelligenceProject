@@ -7,7 +7,10 @@
 #include <WINDOWS.H>    
 #include <stdio.h>
 #include <math.h>
+#include <iostream>
 #include <malloc.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Star.h"
 
 
@@ -27,10 +30,11 @@ int main()
 	n=10;
 	x= (double *) calloc(sizeof(double), m * n);
 	f=(double *)malloc(sizeof(double)  *  m);
-    //licznosc populacji
-    int population;
 
-	//komentarz - dodany
+
+    //================= populacji
+    int itMax = 1;
+    int population = 50;
 
     //1 - bent cigar
     //3 - zakharov
@@ -59,11 +63,14 @@ int main()
 
 		fclose(fpt);
 
+        //====================Losowe zamiast zera
+        srand(time(NULL));
 		for (j = 0; j < n; j++)
         {
-            x[1*n+j]=0.0;
-//            printf("%lf\n",x[1*n+j]);
+            x[n+j]=(rand()%10001)/100.0;
         }
+
+
 
 
         for (k = 0; k < 1; k++)
@@ -71,38 +78,10 @@ int main()
             cec17_test_func(x, f, n,m,func_num);
             for (j = 0; j < 2; j++)
             {
-                printf(" f%d(x[%d]) = %lf,",func_num,j+1,f[j]);
+                printf(" f%d(x[%d]) = %f,",func_num,j+1,f[j]);
             }
             printf("\n");
         }
-
-        int blackHoleID;
-        Star** TabOfStars = new Star*[population];
-        for(int it=0; it<100000; it++) {
-            //obliczamy wartosc funckji
-
-
-            //szukamy czarnej dziury
-
-
-            //zmieniamy polozenie gwiazd
-
-
-            //szukamy nowej czarnej dziury
-
-
-            //aktulizujemy gwaizdy zabite przez czarna dziure
-
-
-            //jesli znajdziemy rozwiazanie zakoncz petle
-
-
-        }
-
-        printf("\n");
-        printf("\n");
-        printf("\n");
-
 
 	}
 	free(x);
