@@ -91,9 +91,9 @@ int main()
     double GLOBAL_BEST = 0.0;
 
     //Initialize a population
-    for (int iter = 0; iter < 30; iter++) {
-        int itMax = 10000;
-        int population = 40;
+    for (int iter = 0; iter < 1; iter++) {
+        int itMax = 0;
+        int population = 20;
         Star **arrOfStars = new Star *[population];
 
         for (int i = 0; i < population; i++) {
@@ -109,7 +109,8 @@ int main()
             //obliczanie wartości funkcji
             for (int i = 0; i < population; i++) {
                 double *pos = arrOfStars[i]->GetPosition();
-                double val = sum_of_diff_pow(pos, n);
+//                double val = sum_of_diff_pow(pos, n);
+                double val = bent_cigar_basic(pos, n);
                 arrOfStars[i]->SetFunctionValue(val);
             }
 
@@ -140,7 +141,8 @@ int main()
                 //liczenie wartości
                 if (arrOfStars[i] != Black_Hole) {
                     double *pos = arrOfStars[i]->GetPosition();
-                    double val = sum_of_diff_pow(pos, n);
+//                    double val = sum_of_diff_pow(pos, n);
+                    double val = bent_cigar_basic(pos, n);
                     arrOfStars[i]->SetFunctionValue(val);
 
                     //sprawdzenie, czy lepsze od czarnej dziury
@@ -188,7 +190,8 @@ int main()
         //najpierw ponowne ustawienie
         for (int i = 0; i < population; i++) {
             double *curr_pos = arrOfStars[i]->GetPosition();
-            double curr_val = sum_of_diff_pow(curr_pos, n);
+//            double curr_val = sum_of_diff_pow(curr_pos, n);
+            double curr_val = bent_cigar_basic(curr_pos, n);
             arrOfStars[i]->SetFunctionValue(curr_val);
         }
         for (int i = 0; i < population; i++) {

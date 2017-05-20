@@ -5,15 +5,14 @@
 #include "Star.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <math.h>
-#include <malloc.h>
+#include <iostream>
 
-Star::Star() {
-
-    position= (double *) calloc(sizeof(double), 20);
-    srand(time(NULL));
-    for (int i = 0; i <10; i++) {
-        position[10+i] = (rand()%10001)/100.0;
+Star::Star(const int D) {
+//    std::cout << "Creating new star: \n";
+    position = (double *) calloc(sizeof(double), /*20*/ D);
+    for (int i = 0; i < D; i++) {
+        position[/*D +*/ i] = (rand() % 10001) / 50.0 - 100.0;
+//        std::cout << i << ": " << position[i] << std::endl;
     }
+//    std::cout << std::endl;
 }
