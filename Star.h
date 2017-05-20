@@ -7,8 +7,15 @@
 
 
 class Star {
-
+public:
+    Star();
+    double GetFunctionValue() { return functionValue; }
+    void SetFunctionValue(double value) { functionValue = value; }
+    double* GetPosition() { return  position; }
+    double GetPosition(int i) { return  position[i]; }
+    void SetPosition(int i, double value) { position[i]=value; }
+    double* position;
+    double functionValue;
 };
-
 
 #endif //C_VERSION_STAR_H
