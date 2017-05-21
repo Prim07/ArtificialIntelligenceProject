@@ -55,7 +55,7 @@ int main()
 		{
 			printf("\n Error: Cannot open input file for reading \n");
 		}
-		
+
 		if (x==NULL)
 			printf("\nError: there is insufficient memory available!\n");
 		for(k=0;k<n;k++)
@@ -88,11 +88,13 @@ int main()
     //=========================================================
     // Black Hole Algorithm
     //=========================================================
-    double GLOBAL_BEST = 0.0;
+    double GLOBAL_AVG = 0.0;
+    double GLOBAL_BEST = DBL_MAX;
+    int f_num = 5;
 
     //Initialize a population
-    for (int iter = 0; iter < 1; iter++) {
-        int itMax = 0;
+    for (int iter = 0; iter < 30; iter++) {
+        int itMax = 5000;
         int population = 20;
         Star **arrOfStars = new Star *[population];
 
@@ -101,7 +103,6 @@ int main()
         }
 
         Star *Black_Hole = NULL;
-//        std::cout << "\n\n=============================================\n\n";
 
         for (int k = 0; k < itMax; k++) {
 
@@ -110,8 +111,10 @@ int main()
             for (int i = 0; i < population; i++) {
                 double *pos = arrOfStars[i]->GetPosition();
 //                double val = sum_of_diff_pow(pos, n);
-                double val = bent_cigar_basic(pos, n);
-                arrOfStars[i]->SetFunctionValue(val);
+//                double val = bent_cigar_basic(pos, n);
+                double f[1];
+                cec17_test_func(pos, f, n, 1, f_num);
+                arrOfStars[i]->SetFunctionValue(f[0]);
             }
 
             //szukanie najlepszej wartości
@@ -142,17 +145,16 @@ int main()
                 if (arrOfStars[i] != Black_Hole) {
                     double *pos = arrOfStars[i]->GetPosition();
 //                    double val = sum_of_diff_pow(pos, n);
-                    double val = bent_cigar_basic(pos, n);
-                    arrOfStars[i]->SetFunctionValue(val);
+//                    double val = bent_cigar_basic(pos, n);
+                    double f[1];
+                    cec17_test_func(pos, f, n, 1, f_num);
+                    arrOfStars[i]->SetFunctionValue(f[0]);
 
                     //sprawdzenie, czy lepsze od czarnej dziury
                     double current_val = arrOfStars[i]->GetFunctionValue();
                     double black_hole_val = Black_Hole->GetFunctionValue();
                     //podmiana na nową czarną dziurę
                     if (current_val < black_hole_val) {
-//                    double* tmp_pos = arrOfStars[i]->GetPosition();
-//                    arrOfStars[i]->SetPosition(Black_Hole->GetPosition());
-//                    Black_Hole->SetPosition(tmp_pos);
                         Black_Hole = arrOfStars[i];
                     }
                 }
@@ -169,6 +171,8 @@ int main()
                 }
             }
             double R = nom / denom;
+//            R/=10.0;
+//            R /= 10.0;
             //  2. sprawdzenie
             for (int i = 0; i < population; i++) {
                 double distance = 0.0;
@@ -181,8 +185,7 @@ int main()
                     arrOfStars[i] = new Star(n);
                 }
             }
-
-//        std::cout << "=============================================\n\n";
+//            std::cout << local_best << std::endl;
         }
 
         double global_best = DBL_MAX;
@@ -191,8 +194,10 @@ int main()
         for (int i = 0; i < population; i++) {
             double *curr_pos = arrOfStars[i]->GetPosition();
 //            double curr_val = sum_of_diff_pow(curr_pos, n);
-            double curr_val = bent_cigar_basic(curr_pos, n);
-            arrOfStars[i]->SetFunctionValue(curr_val);
+//            double curr_val = bent_cigar_basic(curr_pos, n);
+            double f[1];
+            cec17_test_func(curr_pos, f, n, 1, f_num);
+            arrOfStars[i]->SetFunctionValue(f[0]);
         }
         for (int i = 0; i < population; i++) {
 //        std::cout << "in f: " << arrOfStars[i]->GetFunctionValue() << std::endl;
@@ -204,12 +209,14 @@ int main()
 
 //        std::cout << "Result of algorithm: " << global_best << std::endl;
 //        GLOBAL_BEST = (global_best < GLOBAL_BEST) ? global_best : GLOBAL_BEST;
-        GLOBAL_BEST += global_best;
+        GLOBAL_AVG += global_best;
+        GLOBAL_BEST = (global_best < GLOBAL_BEST) ? global_best : GLOBAL_BEST;
         for(int i = 0; i < population; i++)
             delete arrOfStars[i];
         delete [] arrOfStars;
     }
-    std::cout << "Average bests: " << GLOBAL_BEST / 30.0 << std::endl;
+    std::cout << "Average bests: " << GLOBAL_AVG / 30.0 << std::endl;
+    std::cout << "Global best: " << GLOBAL_BEST << std::endl;
     // Free memory
 	free(x);
 	free(f);
